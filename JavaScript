@@ -1,0 +1,41 @@
+let display = document.querySelector(".display");
+let buttons = document.querySelectorAll("button");
+
+buttons.forEach(function(button) {
+    button.addEventListener("click", function() {
+
+        let value = button.textContent;
+
+        // Change X to *
+        if (value === "X") {
+            value = "*";
+        }
+
+        // Clear
+        if (value === "C") {
+            display.value = "";
+        }
+
+        // Backspace
+        else if (value === "⌫") {
+            display.value = display.value.slice(0, -1);
+        }
+
+        // Calculate
+        else if (value === "=") {
+            try {
+                display.value = Function(
+                    "return " + display.value
+                )();
+            } catch {
+                display.value = "Error";
+            }
+        }
+
+        // Add values
+        else {
+            display.value += value;
+        }
+
+    });
+});
